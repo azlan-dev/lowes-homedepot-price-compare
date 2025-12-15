@@ -1,5 +1,9 @@
 import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+    
 def get_coordinates(api_key, zip_code):
     geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={zip_code}&key={api_key}"
     response = requests.get(geocode_url)
@@ -21,7 +25,7 @@ def get_nearby_stores(api_key, lat, lng, radius):
     return []
 
 def find_unique_stores(zip_code, radius):
-    api_key = "AIzaSyBEeyFWcrRc2RPvaaMHFdgFanCVq_AXHQ8"
+    api_key = os.getenv("GOOGLE_MAPS_API_KEY")
     if not api_key:
         raise ValueError("Google Maps API key not found in environment variables")
     
